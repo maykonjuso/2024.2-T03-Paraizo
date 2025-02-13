@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { UserRepositories } from './api';
 import { User as UserModels } from "./interfaces/user.interface";
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
     const [email, setEmail] = useState("");
@@ -12,9 +13,12 @@ export default function Page() {
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
+    const router = useRouter();
     async function submit(data: UserModels) {
+
         const userRepositories = new UserRepositories();
-        setErrorMessage(await userRepositories.login(data));
+        let login = await userRepositories.login(data)
+        if (login) { router.push("/pages/admin/home"); setLoading(false); setErrorMessage("") } else { setLoading(false); setErrorMessage('Email ou senha incorretos.') }
     }
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -62,7 +66,9 @@ export default function Page() {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </motion.div>
-                        <a className='text-paraizo-cyan text-sm font-semibold'>Esqueceu a senha?</a>
+                        <div className='mb-4'>
+                            <a href="mailto:clinicaejparaizo@gmail.com?subject=Solicitação de Senha&body=Gostaria de solicitar a senha do sistema de administração." className='w-full text-center text-sm font-bold text-paraizo-cyan items-center justify-center'>Esqueceu a senha?</a>
+                        </div>
                         <motion.button
                             type="submit"
                             disabled={loading}
@@ -77,12 +83,12 @@ export default function Page() {
                                     <span className="sr-only">Carregando...</span>
                                 </div> : 'Entrar'}
                         </motion.button>
-                        {errorMessage && <p className="text-red-500 text-xs font-bold mb-4 text-center">{errorMessage}</p>}
+                        {errorMessage && <p className="text-red-500 text-xs font-bold mb-4 text-center mt-5">{errorMessage}</p>}
 
                     </form>
-                    <div className='flex gap-1 justify-center'>
-                        <p className='text-sm font-semibold'>Não tem acesso?</p>
-                        <a className='text-paraizo-cyan text-sm font-semibold'>Solicite aqui.</a>
+                    <div className='flex items-center justify-center w-full gap-1 mt-4'>
+                        <p className='text-sm font-bold text-zinc-950'>Não tem acesso?</p>
+                        <a href="mailto:clinicaejparaizo@gmail.com?subject=Solicitação de acesso&body=Gostaria de solicitar acesso ao sistema de administração Paraizo." className='text-sm font-bold text-paraizo-cyan'>Solicite aqui.</a>
                     </div>
                     <div className="w-full flex items-center justify-center border-b-2 pb-3">
                     </div>
