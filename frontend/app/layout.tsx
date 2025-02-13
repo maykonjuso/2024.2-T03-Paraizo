@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from 'next/font/google'
 import "./globals.css";
-import RouteProvider from "./routes";
 
-const inter = Inter({ subsets: ['latin'] })
-
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: "Paraizo",
@@ -19,10 +17,10 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body
-        // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.className} antialiased`}
         style={{ backgroundColor: "white" }}
       >
-        <RouteProvider/>
+        {children}
       </body>
     </html>
   );
