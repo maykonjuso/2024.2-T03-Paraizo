@@ -1,6 +1,5 @@
 'use client'
 
-import patients from "@/app/mocks/patients"
 import React, { useEffect, useState } from "react"
 import { Box, Button, TextField } from "@mui/material"
 import { PacientRepositories } from "../../patients/api"
