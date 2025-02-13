@@ -1,8 +1,8 @@
 'use client'
 
 import Image from "next/image";
-import ServicosSection from "./components/services";
-import PricingSection from "./components/prices";
+import ServicosSection from "./pages/components/services";
+import PricingSection from "./pages/components/prices";
 import { useRouter } from "next/navigation";
 
 

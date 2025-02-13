@@ -15,7 +15,7 @@ export default function GerenciamentoLayout({
         setSelected(page);
     
         if (page === "logout") {
-            router.push(`/pages/home`);
+            router.push(`/`);
             return;
         }
     
